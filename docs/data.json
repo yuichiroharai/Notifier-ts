@@ -1,0 +1,149 @@
+{
+    "project": {
+        "name": "Notifier.ts",
+        "description": "Simple notification class for TypeScript",
+        "version": "1.0.0",
+        "url": "https://github.com/yuichiroharai/Notifier-ts"
+    },
+    "files": {
+        "notifier.js": {
+            "name": "notifier.js",
+            "modules": {},
+            "classes": {
+                "Notifier": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        }
+    },
+    "modules": {},
+    "classes": {
+        "Notifier": {
+            "name": "Notifier",
+            "shortname": "Notifier",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "notifier.js",
+            "line": 2,
+            "description": "最低限の機能に絞り込んだシンプルなイベント通知クラスです。\n\n* イベントリスナーに渡すEventクラスのようなものはありません。\n* 代わりに任意の引数を渡す事ができます。\n* バブリング/キャプチャリングフェーズはありません。\n\n*※このドキュメントはJavaScriptから生成したものですが、TypeScriptで利用する事を前提にしています。*\n\n```\n// TypeScript\n/// <reference path=\"[path]/Notifier.ts\" />\nclass Test {\n  private _notifier:Notifier;\n  private _count:number = 0;\n\n  constructor() {\n    this._notifier = new Notifier();\n\n    this._notifier.on(\"type\", this._onType);\n\n    // without params\n    this._notifier.notify(\"type\");\n\n    // with params\n    this._notifier.notify(\"type\", [\"hoge\"]);\n    this._notifier.notify(\"type\", [\"hoge\", \"fuga\"]);\n\n    this._notifier.off(\"type\", this._onType);\n\n    // doesn't call '_onType' listener.\n    this._notifier.notify(\"type\");\n  }\n\n  // if you need \"this\", use Arrow Function.\n  private _onType = (param1:string, param2:string) => {\n    console.log(\"'_onType' function is called(\" + ++this._count + \"), with params: \" + param1 + \", \" + param2);\n  }\n\n  // console log\n  // '_onType' function is called(1), with params: undefined, undefined\n  // '_onType' function is called(2), with params: hoge, undefined\n  // '_onType' function is called(3), with params: hoge, fuga\n}\n```",
+            "example": [
+                "\n```\n// TypeScript\nvar notifier:Notifier = new Notifier();\n```"
+            ],
+            "is_constructor": 1
+        }
+    },
+    "classitems": [
+        {
+            "file": "notifier.js",
+            "line": 59,
+            "description": "イベントタイプにイベントリスナーを追加します。<br>\n既に追加されているイベントリスナーは一度削除されてから追加されるので、呼び出す順番は一番最後になります。",
+            "example": [
+                "\n```\n// TypeScript\nvar notifier:Notifier = new Notifier();\n...\nnotifier.on(\"type\", onType); // \"onType\" listener is added for \"type\" type.\n```"
+            ],
+            "itemtype": "method",
+            "name": "on",
+            "params": [
+                {
+                    "name": "type",
+                    "description": "追加するイベントタイプ。",
+                    "type": "String"
+                },
+                {
+                    "name": "listener",
+                    "description": "追加するイベントリスナー。",
+                    "type": "Function"
+                }
+            ],
+            "return": {
+                "description": "メソッドチェーン用の自身のオブジェクト。",
+                "type": "Notifier"
+            },
+            "class": "Notifier"
+        },
+        {
+            "file": "notifier.js",
+            "line": 91,
+            "description": "イベントタイプに追加されているイベントリスナーを削除します。<br>\nイベントリスナーを省略すると、指定したイベントタイプに追加されている全てのイベントリスナーを削除します。<br>\nイベントタイプも省略すると、全てのイベントタイプの全てのイベントリスナーを削除します。",
+            "example": [
+                "\n```\n// TypeScript\nvar notifier:Notifier = new Notifier();\n...\nnotifier.off(\"type\", onType); // \"onType\" listener is removed from \"type\" type.\nnotifier.off(\"type\"); // // all listeners is removed from \"type\" type.\nnotifier.off(); // all listeners is removed from all types.\n```"
+            ],
+            "itemtype": "method",
+            "name": "off",
+            "params": [
+                {
+                    "name": "type",
+                    "description": "削除するイベントタイプ。",
+                    "type": "String"
+                },
+                {
+                    "name": "listener",
+                    "description": "削除するイベントリスナー。",
+                    "type": "Function"
+                }
+            ],
+            "return": {
+                "description": "メソッドチェーン用の自身のオブジェクト。",
+                "type": "Notifier"
+            },
+            "class": "Notifier"
+        },
+        {
+            "file": "notifier.js",
+            "line": 149,
+            "description": "イベントタイプにイベントリスナーが追加されているか確認します。<br>\nイベントリスナーを省略すると、指定したイベントタイプに何らかのイベントリスナーが追加されている確認します。<br>\nイベントタイプも省略すると、何らかのイベントタイプに何らかのイベントリスナーが追加されている確認します。",
+            "example": [
+                "\n```\n// TypeScript\nvar notifier:Notifier = new Notifier();\n...\nnotifier.check(\"type\", onType); // check \"onType\" listener is added for \"type\" type.\nnotifier.check(\"type\"); // check any listeners is added for \"type\" type.\nnotifier.check(); // check any listeners is added for any types.\n```"
+            ],
+            "itemtype": "method",
+            "name": "check",
+            "params": [
+                {
+                    "name": "type",
+                    "description": "確認するイベントタイプ。",
+                    "type": "String"
+                },
+                {
+                    "name": "listener",
+                    "description": "確認するイベントリスナー。",
+                    "type": "Function"
+                }
+            ],
+            "return": {
+                "description": "イベントリスナーが追加されているか。",
+                "type": "Boolean"
+            },
+            "class": "Notifier"
+        },
+        {
+            "file": "notifier.js",
+            "line": 193,
+            "description": "イベントタイプに追加されているイベントリスナーを全て実行します。<br>\n第2引数の配列はイベントリスナーの引数として順番に渡されます。",
+            "example": [
+                "\n```\n// TypeScript\nvar notifier:Notifier = new Notifier();\n...\nnotifier.notify(\"type\"); // notify all listeners without params\nnotifier.notify(\"type\", [\"hoge\", \"fuga\"]); // notify all listeners with params\n```"
+            ],
+            "itemtype": "method",
+            "name": "notify",
+            "params": [
+                {
+                    "name": "type",
+                    "description": "通知するイベントタイプ。",
+                    "type": "String"
+                },
+                {
+                    "name": "params",
+                    "description": "リスナーに渡す引数。",
+                    "type": "Array"
+                }
+            ],
+            "return": {
+                "description": "メソッドチェーン用の自身のオブジェクト。",
+                "type": "Notifier"
+            },
+            "class": "Notifier"
+        }
+    ],
+    "warnings": []
+}
