@@ -1,9 +1,0 @@
-{
-  "name": "Notifier.ts",
-  "description": "Simple notification class for TypeScript",
-  "version": "1.0.0",
-  "url": "https://github.com/yuichiroharai/Notifier-ts",
-  "options": {
-    "outdir": "../../docs/"
-  }
-}
